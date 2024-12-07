@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <a href="index.html" class="arrow-link">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <!-- <li><button id="theme-toggle"><i class="fas fa-adjust"></i></button></li> -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="contact-intro">
+            <h1>Contact.</h1>
+            <p>Get in touch or shoot me an email directly on <a href="mailto:hellocodewonders@gmail.com">Lavishkhare@gmail.com</a></p>
+        </section>
+        <section class="contact-form">
+            <form id="contact-form">
+                <input type="text" name="from_name" placeholder="Name" required>
+                <input type="email" name="from_email" placeholder="Email" required>
+                <textarea name="message" placeholder="Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <a href="index.html" class="back-home-link">Go Back Home <i class="fas fa-arrow-right"></i></a>
+        </section>
+    </main>
+
+    <div id="alert-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("e4CWDcglSv8Zb5j4-"); // Use your public key here
+        })();
+    
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    emailjs.sendForm('service_dbgf99y', 'template_o7xibvs', this)
+        .then(function() {
+            showModal('Message sent successfully!');
+        }, function(error) {
+            showModal('Failed to send message. Please try again.');
+        });
+});
+
+function showModal(message) {
+    const modal = document.getElementById('alert-modal');
+    const messageElement = document.getElementById('alert-message');
+    const closeButton = document.querySelector('.close-button');
+
+    messageElement.textContent = message;
+    modal.style.display = 'block';
+
+    closeButton.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+}
+    </script>   
+
+</body>
+</html> 
